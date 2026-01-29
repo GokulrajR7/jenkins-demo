@@ -1,18 +1,16 @@
-# Base OS
-FROM amazonlinux:2023
+# Use nginx as base image (web server included)
+FROM nginx:latest
 
-# Working directory inside container
-WORKDIR /app
+# Remove default nginx page
+RUN rm -rf /usr/share/nginx/html/*
 
-# Copy files
-COPY message.txt .
-COPY build.txt .
-COPY deploy.sh test.sh .
+# Copy build artifact / content
+COPY message.txt /usr/share/nginx/html/index.html
 
-# Ensure scripts are executable
-RUN chmod +x deploy.sh test.sh
+# Expose port 80 inside container
+EXPOSE 80
 
-# Run script when container starts
-CMD ["./deploy.sh"]
+# Nginx runs automatically and keeps container alive
+CMD ["nginx", "-g", "daemon off;"]
 
 
