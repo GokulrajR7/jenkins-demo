@@ -1,8 +1,18 @@
-FROM amazonlinux:2023      # Base OS
-WORKDIR /app            # Working directory inside container
-COPY message.txt .      # Copy file
+# Base OS
+FROM amazonlinux:2023
+
+# Working directory inside container
+WORKDIR /app
+
+# Copy files
+COPY message.txt .
 COPY build.txt .
 COPY deploy.sh test.sh .
-RUN chmod +x deploy.sh test.sh  # Ensure executable
-CMD ["./deploy.sh"]     # Run script when container starts
+
+# Ensure scripts are executable
+RUN chmod +x deploy.sh test.sh
+
+# Run script when container starts
+CMD ["./deploy.sh"]
+
 
